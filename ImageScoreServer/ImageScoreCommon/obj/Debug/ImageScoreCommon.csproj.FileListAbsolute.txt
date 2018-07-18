@@ -1,0 +1,12 @@
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\bin\Debug\ImageScoreCommon.dll.config
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\bin\Debug\ImageScoreCommon.dll
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\bin\Debug\ImageScoreCommon.pdb
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\bin\Debug\EntityFramework.dll
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\bin\Debug\EntityFramework.SqlServer.dll
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\bin\Debug\EntityFramework.xml
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\bin\Debug\EntityFramework.SqlServer.xml
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\obj\Debug\ImageScoreCommon.csproj.CoreCompileInputs.cache
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\obj\Debug\ImageScoreCommon.csproj.CopyComplete
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\obj\Debug\ImageScoreCommon.dll
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\obj\Debug\ImageScoreCommon.pdb
+D:\work\imagescore\server3\ImageScoreServer\ImageScoreCommon\obj\Debug\ImageScoreCommon.csprojAssemblyReference.cache

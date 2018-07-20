@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ImageScoreServer" generation="1" functional="0" release="0" Id="fb381610-6d1d-4472-9253-425197eeda77" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ImageScoreServer" generation="1" functional="0" release="0" Id="81366b8d-fe51-4e50-b808-523744074bc7" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="ImageScoreServerGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -143,9 +143,9 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="162a5241-8cc4-4df3-b320-4355d57ed965" ref="Microsoft.RedDog.Contract\ServiceContract\ImageScoreServerContract@ServiceDefinition">
+    <implementation Id="7a85f8e4-3e27-47ee-8a99-253de2b5a752" ref="Microsoft.RedDog.Contract\ServiceContract\ImageScoreServerContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="746f1b45-2e35-40f0-8cfa-7a911352ea77" ref="Microsoft.RedDog.Contract\Interface\ImageScoreWeb:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="ed95a207-24a4-4e01-bd71-9c65ff53a553" ref="Microsoft.RedDog.Contract\Interface\ImageScoreWeb:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/ImageScoreServer/ImageScoreServerGroup/ImageScoreWeb:Endpoint1" />
           </inPort>

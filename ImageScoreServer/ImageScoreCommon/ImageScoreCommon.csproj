@@ -50,9 +50,11 @@
     <Compile Include="Class1.cs" />
     <Compile Include="ImageScoreContext.cs" />
     <Compile Include="ImageScoreContextInitializer.cs" />
+    <Compile Include="Like.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoreImage.cs" />
+    <Compile Include="ScoreImageReturn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

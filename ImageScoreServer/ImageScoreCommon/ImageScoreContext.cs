@@ -18,5 +18,7 @@ namespace ImageScoreCommon
         }
 
         public DbSet<ScoreImage> Images { get; set; }
+
+        public DbSet<Like> Likes { get; set; }
     }
 }

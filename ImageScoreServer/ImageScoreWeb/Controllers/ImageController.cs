@@ -57,7 +57,7 @@ namespace ImageScoreWeb.Controllers
 
         [Route("labelrank")]
         [HttpGet]
-        public async Task<IEnumerable<ScoreImage>> GetLabelRankImages(int label, int topK)
+        public async Task<IEnumerable<ScoreImage>> GetLabelRankImages(int label, int topK, string visitorWechatId)
         {
             
             if (!Enum.IsDefined(typeof(Label), label))
@@ -70,55 +70,74 @@ namespace ImageScoreWeb.Controllers
                                orderby img.Score descending
                                select img).Take(topK).ToListAsync();
 
-            if (query == null)
+            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+            foreach (ScoreImage img in query)
             {
+                ScoreImageReturn imgR = new ScoreImageReturn(img);
+                imgR.isLike = await isLike(visitorWechatId, imgR);
+                returnList.Add(imgR);
             }
-
-            // how to return images
-            return query;
+            
+            return returnList;
         }
 
         [Route("randomimages")]
         [HttpGet]
-        public async Task<IEnumerable<ScoreImage>> GetRandomImages(int K)
+        public async Task<IEnumerable<ScoreImage>> GetRandomImages(int K, string visitorWechatId)
         {
             var query = await (from img in db.Images
                                orderby Guid.NewGuid()
                                select img).Take(K).ToListAsync();
 
-            if (query == null)
+            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+            foreach (ScoreImage img in query)
             {
+                ScoreImageReturn imgR = new ScoreImageReturn(img);
+                imgR.isLike = await isLike(visitorWechatId, imgR);
+                returnList.Add(imgR);
             }
 
-            return query;
+            return returnList;
         }
 
         [Route("userimages")]
         [HttpGet]
-        public async Task<IEnumerable<ScoreImage>> GetUserImages(string wechatId)
+        public async Task<IEnumerable<ScoreImageReturn>> GetUserImages(string visitorWechatId)
         {
-            if (wechatId == null)
+            if (visitorWechatId == null)
             {
                 return null;
             }
 
             var query = await (from img in db.Images
-                               where img.WechatId == wechatId
+                               where img.WechatId == visitorWechatId
                                orderby img.PostedDate descending
                                select img).ToListAsync();
 
-            if (query == null)
+            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+            foreach (ScoreImage img in query)
             {
+                ScoreImageReturn imgR = new ScoreImageReturn(img);
+                imgR.isLike = await isLike(visitorWechatId, imgR);
+                returnList.Add(imgR);
             }
 
-            return query;
+            return returnList;
+        }
+
+        public async Task<bool> isLike(string wechatId, ScoreImageReturn imgR)
+        {
+            var q = await (from like in db.Likes
+                           where (like.imageId == imgR.ImageId && like.wechatId == wechatId)
+                           select like).ToListAsync();
+            return (q.Count > 0);
         }
 
         [Route("postimage")]
         [HttpPost]
         public async Task<HttpResponseMessage> PostImageTest()
         {
-            var response = Request.CreateResponse(); 
+            var response = Request.CreateResponse();
             string message = "successful.";
             bool isWrong = false;
 
@@ -163,7 +182,7 @@ namespace ImageScoreWeb.Controllers
             else
             {
                 response.StatusCode = HttpStatusCode.InternalServerError;
-                message = "server error.";
+                message = "fail: server error.";
             }
             response.Content = new StringContent(message);
             return response;
@@ -177,17 +196,17 @@ namespace ImageScoreWeb.Controllers
             // Check image file
             if (imageFile == null)
             {
-                message = "null image file.";
+                message = "fail: null image file.";
                 isWrong = true;
             }
             else if (imageFile.ContentLength > 10 * 1024 * 1024)
             {
-                message = "image file is too large.";
+                message = "fail: image file is too large.";
                 isWrong = true;
             }
             else if (imageFile.ContentLength == 0)
             {
-                message = "image file is empty.";
+                message = "fail: image file is empty.";
                 isWrong = true;
             }
             // how to check whether image file ?
@@ -195,12 +214,12 @@ namespace ImageScoreWeb.Controllers
             // Check attributes
             if (null == wechatid)
             {
-                message = "WechatId should be specified.";
+                message = "fail: WechatId should be specified.";
                 isWrong = true;
             }
             if (null == label)
             {
-                message = "Label should be specified.";
+                message = "fail: Label should be specified.";
                 isWrong = true;
             }
             else
@@ -210,19 +229,19 @@ namespace ImageScoreWeb.Controllers
                     int v = int.Parse(label);
                     if (!Enum.IsDefined(typeof(Label), v))
                     {
-                        message = "unkown label (expected 0-8).";
+                        message = "fail: unkown label (expected 0-8).";
                         isWrong = true;
                     }
                 }
                 catch
                 {
-                    message = "unkown label (expected 0-8).";
+                    message = "fail: unkown label (expected 0-8).";
                     isWrong = true;
                 }
             }
             if (null == score)
             {
-                message = "Score should be specified.";
+                message = "fail: Score should be specified.";
                 isWrong = true;
             }
             else
@@ -232,13 +251,13 @@ namespace ImageScoreWeb.Controllers
                     double v = double.Parse(score);
                     if (v < 0 || v > 100)
                     {
-                        message = "score out of range (expected [0, 100]).";
+                        message = "fail: score out of range (expected [0, 100]).";
                         isWrong = true;
                     }
                 }
                 catch
                 {
-                    message = "score has wrong format.";
+                    message = "fail: score has wrong format.";
                     isWrong = true;
                 }
             }
@@ -275,47 +294,104 @@ namespace ImageScoreWeb.Controllers
         {
             var response = Request.CreateResponse();
             string message = "successful.";
+            response.Content = new StringContent(message);
+            response.StatusCode = HttpStatusCode.OK;
 
             string imageIdStr = HttpContext.Current.Request["imageId"];
-            string wechatId = HttpContext.Current.Request["wechatId"];
+            string visitorWechatId = HttpContext.Current.Request["VisitorWechatId"];
+            string isToCancelLikeStr = HttpContext.Current.Request["IsToCancelLike"];
+
+            bool isToCancelLike;
+            int imageId;
             try
             {
-                int imageId = int.Parse(imageIdStr);
-                ScoreImage img = await db.Images.FindAsync(imageId);
-                img.LikeNum += 1;
-                await db.SaveChangesAsync();
-                response.StatusCode = HttpStatusCode.OK;
+                imageId = int.Parse(imageIdStr);
+                isToCancelLike = bool.Parse(isToCancelLikeStr);
             }
             catch
             {
+                message = "IsToCancelLike or imageId has wrong format.";
+                response.Content = new StringContent(message);
                 response.StatusCode = HttpStatusCode.Forbidden;
-                message = "imageId wrong format.";
+                return response;
             }
-            response.Content = new StringContent(message);
+
+            var query = await (from like in db.Likes
+                               where (like.imageId == imageId && like.wechatId == visitorWechatId)
+                               select like).ToListAsync();
+            if (isToCancelLike) // to cancel like
+            {
+                if (query.Count == 0)
+                {
+                    message = "fail: this image is not liked by this user.";
+                    response.Content = new StringContent(message);
+                    response.StatusCode = HttpStatusCode.Forbidden;
+                    return response;
+                }
+                ScoreImage img = await db.Images.FindAsync(imageId); // like num --
+                img.LikeNum -= 1;
+                Like toDeleteLike = query[0];
+                db.Likes.Remove(toDeleteLike);
+                await db.SaveChangesAsync();
+            }
+            else // to add like
+            {
+                if (query.Count > 0)
+                {
+                    message = "fail: this image is already liked by this user.";
+                    response.Content = new StringContent(message);
+                    response.StatusCode = HttpStatusCode.Forbidden;
+                    return response;
+                }
+
+                ScoreImage img = await db.Images.FindAsync(imageId); // like num ++
+                img.LikeNum += 1;
+                Like newLikeItem = new Like();
+                newLikeItem.imageId = imageId; // insert a item of like
+                newLikeItem.wechatId = visitorWechatId;
+                db.Likes.Add(newLikeItem);
+                await db.SaveChangesAsync();
+            }
             return response;
         }
 
         //=========test methods===========
 
-        [Route("getall")]
+        [Route("getallimages")]
         [HttpGet]
-        public async Task<IEnumerable<ScoreImage>> GetAll()
+        public async Task<IEnumerable<ScoreImage>> GetAllImages()
         {
-            var adsList = db.Images.AsQueryable();
+            var imgsList = db.Images.AsQueryable();
 
-            int count = adsList.Count();
+            int count = imgsList.Count();
 
-            return (await adsList.ToListAsync());
+            return (await imgsList.ToListAsync());
+        }
+
+        [Route("getalllikes")]
+        [HttpGet]
+        public async Task<IEnumerable<Like>> GetAlllikes()
+        {
+            var likesList = db.Likes.AsQueryable();
+
+            int count = likesList.Count();
+
+            return (await likesList.ToListAsync());
         }
 
         [Route("deleteall150370")]
         [HttpGet]
         public async Task DeleteAll()
         {
-            var adsList = db.Images.AsQueryable();
-            foreach (ScoreImage img in (await adsList.ToListAsync()))
+            var imgsList = db.Images.AsQueryable();
+            foreach (ScoreImage img in (await imgsList.ToListAsync()))
             {
                 db.Images.Remove(img);
+            }
+            var likesList = db.Likes.AsQueryable();
+            foreach (Like like in (await likesList.ToListAsync()))
+            {
+                db.Likes.Remove(like);
             }
             await db.SaveChangesAsync();
         }

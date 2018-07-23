@@ -125,6 +125,31 @@ namespace ImageScoreWeb.Controllers
             return returnList;
         }
 
+        [Route("userlabelimages")]
+        [HttpGet]
+        public async Task<IEnumerable<ScoreImageReturn>> GetUserLabelImages(string visitorWechatId, int label)
+        {
+            if (visitorWechatId == null)
+            {
+                return null;
+            }
+
+            var query = await (from img in db.Images
+                               where (img.WechatId == visitorWechatId && img.Label == (Label)label)
+                               orderby img.Score descending
+                               select img).ToListAsync();
+
+            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+            foreach (ScoreImage img in query)
+            {
+                ScoreImageReturn imgR = new ScoreImageReturn(img);
+                imgR.isLike = await isLike(visitorWechatId, imgR);
+                returnList.Add(imgR);
+            }
+
+            return returnList;
+        }
+
         public async Task<bool> isLike(string wechatId, ScoreImageReturn imgR)
         {
             var q = await (from like in db.Likes

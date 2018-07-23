@@ -1,19 +1,19 @@
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] At least one other instance of the launcher is running. Will wait until they all finish
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Service running in Emulator Mode, will not wait/kill other instances of the launcher
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] DiagnosticsStoreRootPath set to: C:\Users\t-chtian\AppData\Local\dftmp\Resources\c723a175-b83e-4697-b7dc-7057840dda51
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Checking VM Type
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Extension set to Emulator Mode
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Reading XML configuration file
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Bypassing private config decryption
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:40 AM] Stopping the running plugin, if any
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:41 AM] No DiagnosticsPlugin is running.
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:41 AM] Killing any DiagnosticsPlugin that might remain.
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:41 AM] Killing any MonAgentHost that might remain.
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:41 AM] Diagnostics plugin stopped successfully
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:25:41 AM] Resetting DiagnosticPlugin
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:26:51 AM] DiagnosticsPlugin launched successfully with new configuration
-DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 5:26:51 AM] DiagnosticPlugin exited with code 0
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] At least one other instance of the launcher is running. Will wait until they all finish
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Service running in Emulator Mode, will not wait/kill other instances of the launcher
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] DiagnosticsStoreRootPath set to: C:\Users\t-chtian\AppData\Local\dftmp\Resources\b1dbdd86-2e60-4766-a2ce-41b3bdfbe0e1
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Checking VM Type
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Extension set to Emulator Mode
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Reading XML configuration file
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Bypassing private config decryption
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:58 AM] Stopping the running plugin, if any
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:59 AM] No DiagnosticsPlugin is running.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:59 AM] Killing any DiagnosticsPlugin that might remain.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:59 AM] Killing any MonAgentHost that might remain.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:59 AM] Diagnostics plugin stopped successfully
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:30:59 AM] Resetting DiagnosticPlugin
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:32:09 AM] DiagnosticsPlugin launched successfully with new configuration
+DiagnosticsPluginLauncher.exe Information: 0 : [7/23/2018 10:32:09 AM] DiagnosticPlugin exited with code 0

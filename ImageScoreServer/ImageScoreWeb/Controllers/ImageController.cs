@@ -237,12 +237,12 @@ namespace ImageScoreWeb.Controllers
             // how to check whether image file ?
 
             // Check attributes
-            if (null == wechatid)
+            if (null == wechatid || "" == wechatid)
             {
                 message = "fail: WechatId should be specified.";
                 isWrong = true;
             }
-            if (null == label)
+            if (null == label || "" == label)
             {
                 message = "fail: Label should be specified.";
                 isWrong = true;
@@ -264,7 +264,7 @@ namespace ImageScoreWeb.Controllers
                     isWrong = true;
                 }
             }
-            if (null == score)
+            if (null == score || "" == score)
             {
                 message = "fail: Score should be specified.";
                 isWrong = true;
@@ -325,6 +325,14 @@ namespace ImageScoreWeb.Controllers
             string imageIdStr = HttpContext.Current.Request["imageId"];
             string visitorWechatId = HttpContext.Current.Request["VisitorWechatId"];
             string isToCancelLikeStr = HttpContext.Current.Request["IsToCancelLike"];
+
+            if (null == visitorWechatId || "" == visitorWechatId)
+            {
+                message = "visitorWechatId not found or set as null.";
+                response.Content = new StringContent(message);
+                response.StatusCode = HttpStatusCode.Forbidden;
+                return response;
+            }
 
             bool isToCancelLike;
             int imageId;

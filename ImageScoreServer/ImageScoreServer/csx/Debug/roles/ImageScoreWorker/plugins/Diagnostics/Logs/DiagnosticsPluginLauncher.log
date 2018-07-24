@@ -1,0 +1,10 @@
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] DiagnosticsStoreRootPath set to: C:\Users\t-chtian\AppData\Local\dftmp\Resources\52e53321-9e8c-4276-a499-9841109fdfab
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Checking VM Type
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Extension set to Emulator Mode
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Reading XML configuration file
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Bypassing private config decryption
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:41:25 AM] Stopping the running plugin, if any

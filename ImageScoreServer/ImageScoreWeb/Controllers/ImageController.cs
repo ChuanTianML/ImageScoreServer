@@ -413,8 +413,12 @@ namespace ImageScoreWeb.Controllers
 
         [Route("deleteall")]
         [HttpGet]
-        public async Task DeleteAll()
+        public async Task DeleteAll(string password)
         {
+            if("areyousure" != password)
+            {
+                return;
+            }
             var imgsList = db.Images.AsQueryable();
             foreach (ScoreImage img in (await imgsList.ToListAsync()))
             {
@@ -430,8 +434,13 @@ namespace ImageScoreWeb.Controllers
 
         [Route("deleteoneuserimages")]
         [HttpGet]
-        public async Task DeleteOneUserImages(string wechatId)
+        public async Task DeleteOneUserImages(string wechatId, string password)
         {
+            if ("areyousure" != password)
+            {
+                return;
+            }
+
             var imgs = await (from img in db.Images
                                where img.WechatId == wechatId
                                select img).ToListAsync();

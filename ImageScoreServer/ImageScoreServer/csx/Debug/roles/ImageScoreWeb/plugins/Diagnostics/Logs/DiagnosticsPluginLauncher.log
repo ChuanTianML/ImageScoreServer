@@ -1,17 +1,17 @@
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] DiagnosticsStoreRootPath set to: C:\Users\t-chtian\AppData\Local\dftmp\Resources\c0e2cfe4-a395-43f9-a13c-07bee57eef7a
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Checking VM Type
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Extension set to Emulator Mode
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Reading XML configuration file
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Bypassing private config decryption
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Stopping the running plugin, if any
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] No DiagnosticsPlugin is running.
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Killing any DiagnosticsPlugin that might remain.
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Killing any MonAgentHost that might remain.
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Diagnostics plugin stopped successfully
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:36:40 AM] Resetting DiagnosticPlugin
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:37:50 AM] DiagnosticsPlugin launched successfully with new configuration
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 3:37:50 AM] DiagnosticPlugin exited with code 0
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] At least one other instance of the launcher is running. Will wait until they all finish
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Service running in Emulator Mode, will not wait/kill other instances of the launcher
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] DiagnosticsStoreRootPath set to: C:\Users\t-chtian\AppData\Local\dftmp\Resources\1ba42ecf-6c24-4420-9dfd-e1c64ca2e1ba
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Checking VM Type
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Extension set to Emulator Mode
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Reading XML configuration file
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Bypassing private config decryption
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Stopping the running plugin, if any
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] No DiagnosticsPlugin is running.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Killing any DiagnosticsPlugin that might remain.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Killing any MonAgentHost that might remain.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Diagnostics plugin stopped successfully
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:10 AM] Resetting DiagnosticPlugin

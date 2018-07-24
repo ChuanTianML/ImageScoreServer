@@ -1,12 +1,21 @@
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] At least one other instance of the launcher is running. Will wait until they all finish
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Service running in Emulator Mode, will not wait/kill other instances of the launcher
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] DiagnosticsStoreRootPath set to: C:\Users\t-chtian\AppData\Local\dftmp\Resources\c8e71e6c-dd19-4ba0-b5ec-f0dd6519f084
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Checking VM Type
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Extension set to Emulator Mode
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Reading XML configuration file
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Bypassing private config decryption
-DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 4:17:57 AM] Stopping the running plugin, if any
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] At least one other instance of the launcher is running. Will wait until they all finish
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Service running in Emulator Mode, will not wait/kill other instances of the launcher
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] DiagnosticsStoreRootPath set to: C:\Users\t-chtian\AppData\Local\dftmp\Resources\f65fa748-be9a-451b-8374-7a7f0dd3e327
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Checking VM Type
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Emulator config file set to D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Extension set to Emulator Mode
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Reading XML configuration file
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Bypassing private config decryption
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Stopping the running plugin, if any
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Found a MonAgentHost.exe. WadArguments: "D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\plugins\Diagnostics\Monitor\x64\MonAgentHost.exe" -LocalPath "C:\Users\t-chtian\AppData\Local\dftmp\Resources\2a0c5192-08d1-4107-b4d2-89d328a37f00\WAD0105"  -ConfigFile "C:\Users\t-chtian\AppData\Local\dftmp\Resources\2a0c5192-08d1-4107-b4d2-89d328a37f00\WAD0105\Configuration\MaConfig.xml" -ShutDownEvent WADDM-ShutDown-6e3b8eb799e545daa8207d8b0e5783dd  -TotalShutDownEvent WADDM-TotalShutDown-6e3b8eb799e545daa8207d8b0e5783dd -InitializedEvent WADM-StartUp-6e3b8eb799e545daa8207d8b0e5783dd -parent 19204 -events -wadVer1v5 -UseProxyServer -XStoreAccounts WadAccount#true#devstoreaccount1#Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==#http://127.0.0.1:10002#http://127.0.0.1:10001#http://127.0.0.1:10000.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Found a DiagnosticsPlugin.exe. WadArguments: "D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\plugins\Diagnostics\DiagnosticsPlugin.exe" DiagnosticPlugin-ShutdownEvent DiagnosticPlugin-TotalShutdownEvent -wadVer1v5.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Loading config file: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Config file to read: D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWorker\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Reading XML configuration file
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Bypassing private config decryption
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Found a running wad2 MA not sharing the same local directory
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Killing any DiagnosticsPlugin that might remain.
+DiagnosticsPluginLauncher.exe Information: 0 : [7/24/2018 10:12:11 AM] Found a DiagnosticsPlugin.exe. WadArguments: "D:\work\imagescore\server3\ImageScoreServer\ImageScoreServer\csx\Debug\roles\ImageScoreWeb\plugins\Diagnostics\DiagnosticsPlugin.exe" DiagnosticPlugin-ShutdownEvent DiagnosticPlugin-TotalShutdownEvent -wadVer1v5.

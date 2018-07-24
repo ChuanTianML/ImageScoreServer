@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -22,8 +25,7 @@ namespace ImageScoreWeb.Controllers
     public class ImageController : ApiController
     {
         private ImageScoreContext db = new ImageScoreContext();
-        private CloudQueue imagesQueue; // image queue
-        private static CloudBlobContainer imagesBlobContainer; // image blob container
+        private CloudBlobContainer imagesBlobContainer; // image blob container
 
         public ImageController()
         {
@@ -45,14 +47,6 @@ namespace ImageScoreWeb.Controllers
 
             // Get a reference to the blob container.
             imagesBlobContainer = blobClient.GetContainerReference("scoreimages");
-
-            // Get context object for working with queues, and 
-            // set a default retry policy appropriate for a web user interface.
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            queueClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
-
-            // Get a reference to the queue.
-            imagesQueue = queueClient.GetQueueReference("scoreimages");
         }
 
         [Route("labelrank")]
@@ -190,15 +184,14 @@ namespace ImageScoreWeb.Controllers
             {
                 imageBlob = await UploadAndSaveBlobAsync(imageFile);
                 img.ImageURL = imageBlob.Uri.ToString();
-
                 img.PostedDate = DateTime.Now;
+
+                // generate thumbnail
+                generateThumbnail(img);
+
                 db.Images.Add(img);
                 await db.SaveChangesAsync();
                 Trace.TraceInformation("Created ImageId {0} in database", img.ImageId);
-
-                var queueMessage = new CloudQueueMessage(img.ImageId.ToString());
-                await imagesQueue.AddMessageAsync(queueMessage);
-                Trace.TraceInformation("Created queue message for AdId {0}", img.ImageId);
                     
                 response.StatusCode = HttpStatusCode.OK;
                 message = "successful.";
@@ -210,6 +203,78 @@ namespace ImageScoreWeb.Controllers
             }
             response.Content = new StringContent(message);
             return response;
+        }
+
+        public void generateThumbnail(ScoreImage img)
+        {
+            Uri blobUri = new Uri(img.ImageURL); // get image url
+            string blobName = blobUri.Segments[blobUri.Segments.Length - 1]; // ??? get blobname using image url
+
+            // use blobname to get thumbnial name, also get input blob and output blob
+            CloudBlockBlob inputBlob = this.imagesBlobContainer.GetBlockBlobReference(blobName);
+            string thumbnailName = Path.GetFileNameWithoutExtension(inputBlob.Name) + "thumb.jpg";
+            CloudBlockBlob outputBlob = this.imagesBlobContainer.GetBlockBlobReference(thumbnailName);
+
+            int[] size;
+            using (Stream input = inputBlob.OpenRead()) // transform input/output blobs to streams
+            using (Stream output = outputBlob.OpenWrite())
+            {
+                size = ConvertImageToThumbnailJPG(input, output); // call a function to get blob containing thumbnail
+                outputBlob.Properties.ContentType = "image/jpeg";
+            }
+            Trace.TraceInformation("Generated thumbnail in blob {0}", thumbnailName);
+            img.ImageWidth = size[0];
+            img.ImageHeight = size[1];
+            img.ThumbnailWidth = size[2];
+            img.ThumbnailHeight = size[3];
+            img.ThumbnailURL = outputBlob.Uri.ToString(); // add a item "ThumbnailURL" to advertisement, containing the url of thembnail
+            //db.SaveChanges(); // database do saving
+        }
+
+        public int[] ConvertImageToThumbnailJPG(Stream input, Stream output) // get the thumbnail of a image
+        {
+            // summary
+            // create a thumbnail for a source image, and save it to output stream
+
+            var originalImage = new Bitmap(input);
+
+            // compute the height and width of the thumbnail
+            int width;
+            int height;
+            int thumbnailwidth = 500;
+            width = originalImage.Width > thumbnailwidth ? thumbnailwidth : originalImage.Width; // min(width, thumbnailwidth)
+            height = originalImage.Height * width / originalImage.Width;
+
+            Bitmap thumbnailImage = null;
+            try
+            {
+                thumbnailImage = new Bitmap(width, height); // create a new image, waiting to be drawe
+
+                using (Graphics graphics = Graphics.FromImage(thumbnailImage))
+                {
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic; // specify the algorithm when scaling or rotating the image.
+                    graphics.SmoothingMode = SmoothingMode.AntiAlias; // whether smoothing is applied
+                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality; // balabala
+                    graphics.DrawImage(originalImage, 0, 0, width, height); // draw the image
+                }
+
+                thumbnailImage.Save(output, ImageFormat.Jpeg); // save to blob
+            }
+            finally
+            {
+                if (thumbnailImage != null)
+                {
+                    thumbnailImage.Dispose();
+                }
+            }
+            if (thumbnailImage != null)
+            {
+                return new int[] { originalImage.Width, originalImage.Height, width, height };
+            }
+            else
+            {
+                return new int[] { 0, 0, 0, 0 };
+            }
         }
 
         public bool checkInput(string wechatid, string label, string score, HttpPostedFile imageFile, out string message)
@@ -428,6 +493,33 @@ namespace ImageScoreWeb.Controllers
             foreach (Like like in (await likesList.ToListAsync()))
             {
                 db.Likes.Remove(like);
+            }
+            await db.SaveChangesAsync();
+        }
+
+        [Route("deleteoneimage")]
+        [HttpGet]
+        public async Task DeleteOneImage(int imageId, string password)
+        {
+            if ("areyousure" != password)
+            {
+                return;
+            }
+
+            var imgs = await (from img in db.Images
+                              where img.ImageId == imageId
+                              select img).ToListAsync();
+
+            foreach (ScoreImage img in imgs)
+            {
+                var likes = await (from like in db.Likes
+                                   where like.imageId == img.ImageId
+                                   select like).ToListAsync();
+                foreach (Like l in likes)
+                {
+                    db.Likes.Remove(l);
+                }
+                db.Images.Remove(img);
             }
             await db.SaveChangesAsync();
         }

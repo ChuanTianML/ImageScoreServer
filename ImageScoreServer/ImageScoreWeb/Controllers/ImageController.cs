@@ -59,18 +59,17 @@ namespace ImageScoreWeb.Controllers
         [HttpGet]
         public async Task<IEnumerable<ScoreImage>> GetLabelRankImages(int label, int topK, string visitorWechatId)
         {
-            
+            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
             if (!Enum.IsDefined(typeof(Label), label))
             {
-                return null;
+                return returnList;
             }
 
             var query = await (from img in db.Images // to do top N
                                where img.Label == (Label)label
                                orderby img.Score descending
                                select img).Take(topK).ToListAsync();
-
-            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+            
             foreach (ScoreImage img in query)
             {
                 ScoreImageReturn imgR = new ScoreImageReturn(img);
@@ -104,17 +103,17 @@ namespace ImageScoreWeb.Controllers
         [HttpGet]
         public async Task<IEnumerable<ScoreImageReturn>> GetUserImages(string visitorWechatId)
         {
+            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
             if (visitorWechatId == null)
             {
-                return null;
+                return returnList;
             }
 
             var query = await (from img in db.Images
                                where img.WechatId == visitorWechatId
                                orderby img.PostedDate descending
                                select img).ToListAsync();
-
-            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+                        
             foreach (ScoreImage img in query)
             {
                 ScoreImageReturn imgR = new ScoreImageReturn(img);
@@ -129,17 +128,17 @@ namespace ImageScoreWeb.Controllers
         [HttpGet]
         public async Task<IEnumerable<ScoreImageReturn>> GetUserLabelImages(string visitorWechatId, int label)
         {
-            if (visitorWechatId == null)
+            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+            if (!Enum.IsDefined(typeof(Label), label))
             {
-                return null;
+                return returnList;
             }
 
             var query = await (from img in db.Images
                                where (img.WechatId == visitorWechatId && img.Label == (Label)label)
                                orderby img.Score descending
                                select img).ToListAsync();
-
-            List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
+            
             foreach (ScoreImage img in query)
             {
                 ScoreImageReturn imgR = new ScoreImageReturn(img);
@@ -412,7 +411,7 @@ namespace ImageScoreWeb.Controllers
             return (await likesList.ToListAsync());
         }
 
-        [Route("deleteall150370")]
+        [Route("deleteall")]
         [HttpGet]
         public async Task DeleteAll()
         {
@@ -425,6 +424,28 @@ namespace ImageScoreWeb.Controllers
             foreach (Like like in (await likesList.ToListAsync()))
             {
                 db.Likes.Remove(like);
+            }
+            await db.SaveChangesAsync();
+        }
+
+        [Route("deleteoneuserimages")]
+        [HttpGet]
+        public async Task DeleteOneUserImages(string wechatId)
+        {
+            var imgs = await (from img in db.Images
+                               where img.WechatId == wechatId
+                               select img).ToListAsync();
+
+            foreach (ScoreImage img in imgs)
+            {
+                var likes = await (from like in db.Likes
+                                   where like.imageId == img.ImageId
+                                   select like).ToListAsync();
+                foreach (Like l in likes)
+                {
+                    db.Likes.Remove(l);
+                }
+                db.Images.Remove(img);
             }
             await db.SaveChangesAsync();
         }

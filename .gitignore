@@ -3,4 +3,5 @@
 *.dll
 *.pdb
 *.log
+*.exe
 /Logs

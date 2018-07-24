@@ -114,23 +114,15 @@ namespace ImageScoreWorker
             // summary
             // create a thumbnail for a source image, and save it to output stream
 
-            int thumbnailsize = 80; // after converting, max(height, width) == 80
-            int width;
-            int height;
             var originalImage = new Bitmap(input);
 
             // compute the height and width of the thumbnail
-            if (originalImage.Width > originalImage.Height)
-            {
-                width = thumbnailsize;
-                height = thumbnailsize * originalImage.Height / originalImage.Width;
-            }
-            else
-            {
-                height = thumbnailsize;
-                width = thumbnailsize * originalImage.Width / originalImage.Height;
-            }
-
+            int width;
+            int height;
+            int thumbnailwidth = 500;
+            width = originalImage.Width > thumbnailwidth ? thumbnailwidth : originalImage.Width; // min(width, thumbnailwidth)
+            height = originalImage.Height * thumbnailwidth / originalImage.Width;
+           
             Bitmap thumbnailImage = null;
             try
             {

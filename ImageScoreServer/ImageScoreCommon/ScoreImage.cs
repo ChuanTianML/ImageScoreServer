@@ -25,6 +25,8 @@ namespace ImageScoreCommon
         [Key]
         public int ImageId { get; set; }
 
+        public string imageHash { get; set; }
+
         public string WechatId { get; set; }
 
         public DateTime PostedDate { get; set; }

@@ -51,7 +51,7 @@ namespace ImageScoreWeb.Controllers
 
         [Route("labelrank")]
         [HttpGet]
-        public async Task<IEnumerable<ScoreImage>> GetLabelRankImages(int label, int topK, string visitorWechatId)
+        public async Task<IEnumerable<ScoreImageReturn>> GetLabelRankImages(int label, int topK, string visitorWechatId)
         {
             List<ScoreImageReturn> returnList = new List<ScoreImageReturn>();
             if (!Enum.IsDefined(typeof(Label), label))
@@ -76,7 +76,7 @@ namespace ImageScoreWeb.Controllers
 
         [Route("randomimages")]
         [HttpGet]
-        public async Task<IEnumerable<ScoreImage>> GetRandomImages(int K, string visitorWechatId)
+        public async Task<IEnumerable<ScoreImageReturn>> GetRandomImages(int K, string visitorWechatId)
         {
             var query = await (from img in db.Images
                                orderby Guid.NewGuid()
@@ -163,9 +163,10 @@ namespace ImageScoreWeb.Controllers
             string wechatid = HttpContext.Current.Request["WechatId"];
             string label = HttpContext.Current.Request["Label"];
             string score = HttpContext.Current.Request["Score"];
+            string imageHash;
             var imageFile = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
 
-            isWrong = checkInput(wechatid, label, score, imageFile, out message);
+            isWrong = checkInput(wechatid, label, score, imageFile, out message, out imageHash);
 
             if (isWrong)
             {
@@ -178,6 +179,7 @@ namespace ImageScoreWeb.Controllers
             img.WechatId = wechatid;
             img.Score = double.Parse(score);
             img.Label = (Label)int.Parse(label);
+            img.imageHash = imageHash;
 
             CloudBlockBlob imageBlob = null;
             if (ModelState.IsValid)
@@ -236,7 +238,8 @@ namespace ImageScoreWeb.Controllers
             // summary
             // create a thumbnail for a source image, and save it to output stream
 
-            var originalImage = new Bitmap(input);
+            //var originalImage = new Bitmap(input);
+            System.Drawing.Image originalImage = System.Drawing.Image.FromStream(input);
 
             // compute the height and width of the thumbnail
             int width;
@@ -249,6 +252,10 @@ namespace ImageScoreWeb.Controllers
             try
             {
                 thumbnailImage = new Bitmap(width, height); // create a new image, waiting to be drawe
+                foreach (PropertyItem p in originalImage.PropertyItems) // remain EXIF properties.
+                {
+                    thumbnailImage.SetPropertyItem(p);
+                }
 
                 using (Graphics graphics = Graphics.FromImage(thumbnailImage))
                 {
@@ -269,7 +276,23 @@ namespace ImageScoreWeb.Controllers
             }
             if (thumbnailImage != null)
             {
-                return new int[] { originalImage.Width, originalImage.Height, width, height };
+                int orientationCode = getOrientationCode(originalImage.PropertyItems);
+                // return [original.visualWidth, original.visualHeight, thumbnail.visualWidth, thumbnail.visualHeight]
+                switch (orientationCode)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        {
+                            return new int[] { originalImage.Width, originalImage.Height, width, height };
+                        }
+                    default:
+                        {
+                            return new int[] { originalImage.Height, originalImage.Width, height, width };
+                        }                 
+                }
+                //return new int[] { originalImage.Width, originalImage.Height, width, height };
             }
             else
             {
@@ -277,10 +300,23 @@ namespace ImageScoreWeb.Controllers
             }
         }
 
-        public bool checkInput(string wechatid, string label, string score, HttpPostedFile imageFile, out string message)
+        public int getOrientationCode(PropertyItem[] imageProperties)
+        {
+            foreach (PropertyItem p in imageProperties)
+            {
+                if (0x0112 == p.Id)
+                {
+                    return BitConverter.ToInt16(p.Value, 0);
+                }
+            }
+            return -1;
+        }
+
+        public bool checkInput(string wechatid, string label, string score, HttpPostedFile imageFile, out string message, out string imageHash)
         {
             bool isWrong = false;
             message = "successful.";
+            imageHash = null;
 
             // Check image file
             if (imageFile == null)
@@ -297,6 +333,23 @@ namespace ImageScoreWeb.Controllers
             {
                 message = "fail: image file is empty.";
                 isWrong = true;
+            }
+            else // check whether repeated.
+            {
+                string itshash;
+                var fileStream = imageFile.InputStream;
+                fileStream.Position = 0;
+                var hash = System.Security.Cryptography.HashAlgorithm.Create();
+                itshash = BitConverter.ToString(hash.ComputeHash(fileStream));
+                imageHash = itshash;
+                var queryRepeated = (from img in db.Images
+                                     where img.imageHash == itshash
+                                     select img).ToList();
+                if (queryRepeated.Count > 0)
+                {
+                    message = "fail: repeated image file.";
+                    isWrong = true;
+                }
             }
             // how to check whether image file ?
 
@@ -367,11 +420,10 @@ namespace ImageScoreWeb.Controllers
             // Retrieve reference to a blob. 
             CloudBlockBlob imageBlob = imagesBlobContainer.GetBlockBlobReference(blobName);
             // Create the blob by uploading a local file.
-            using (var fileStream = imageFile.InputStream)
-            {
-                await imageBlob.UploadFromStreamAsync(fileStream);
-            }
-
+            var fileStream = imageFile.InputStream;
+            fileStream.Position = 0;
+            await imageBlob.UploadFromStreamAsync(fileStream);
+            
             Trace.TraceInformation("Uploaded image file to {0}", imageBlob.Uri.ToString());
 
             return imageBlob;

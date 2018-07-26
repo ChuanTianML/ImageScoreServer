@@ -240,13 +240,31 @@ namespace ImageScoreWeb.Controllers
 
             //var originalImage = new Bitmap(input);
             System.Drawing.Image originalImage = System.Drawing.Image.FromStream(input);
+			int orientationCode = getOrientationCode(originalImage.PropertyItems);
 
             // compute the height and width of the thumbnail
             int width;
             int height;
             int thumbnailwidth = 500;
-            width = originalImage.Width > thumbnailwidth ? thumbnailwidth : originalImage.Width; // min(width, thumbnailwidth)
-            height = originalImage.Height * width / originalImage.Width;
+            switch (orientationCode)
+            {
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    {
+        	            height = originalImage.Height > thumbnailwidth ? thumbnailwidth : originalImage.Height; // min(width, thumbnailwidth)
+            			width = originalImage.Width * height / originalImage.Height;
+            			break;
+                    }
+                default:
+                    {
+                        width = originalImage.Width > thumbnailwidth ? thumbnailwidth : originalImage.Width; // min(width, thumbnailwidth)
+            			height = originalImage.Height * width / originalImage.Width;
+            			break;
+                    }                 
+            }
+
 
             Bitmap thumbnailImage = null;
             try
@@ -276,20 +294,20 @@ namespace ImageScoreWeb.Controllers
             }
             if (thumbnailImage != null)
             {
-                int orientationCode = getOrientationCode(originalImage.PropertyItems);
+                
                 // return [original.visualWidth, original.visualHeight, thumbnail.visualWidth, thumbnail.visualHeight]
                 switch (orientationCode)
                 {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
                         {
-                            return new int[] { originalImage.Width, originalImage.Height, width, height };
+                        	return new int[] { originalImage.Height, originalImage.Width, height, width };
                         }
                     default:
                         {
-                            return new int[] { originalImage.Height, originalImage.Width, height, width };
+                            return new int[] { originalImage.Width, originalImage.Height, width, height };
                         }                 
                 }
                 //return new int[] { originalImage.Width, originalImage.Height, width, height };
